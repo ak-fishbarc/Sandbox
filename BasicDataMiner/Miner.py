@@ -24,39 +24,32 @@ class Miner:
             self.harvested_data[self.stamp] = {'Address':_address, 'word': word, 'result': result}
             self.stamp += 1
 
-    def search_for(self, uris, word, _from=None, _to=None):
-        if type(word) == str:
-            if not _from:
-                _from = '>'
-            if not _to:
-                _to = '<'
-            if type(uris) == list:
-                for _address in uris:
-                    self.check(_address, word, _from, _to)
-                return self.harvested_data
-            elif type(uris) == str:
-                self.check(uris, word, _from, _to)
-                return self.harvested_data
-            else:
-                return 'uri must be of string type.'
-        else:
-            return 'word must be of string type'
-
-    def search_in(self, uris, words, _from=None, _to=None):
+    def search_for(self, uris, words, _from=None, _to=None):
+        if not _from:
+            _from = '>'
+        if not _to:
+            _to = '<'
         if type(uris) == list:
             for _address in uris:
-                if not _from:
-                    _from = '>'
-                if not _to:
-                    _to = '<'
-                if type(words) == list:
+                if type(words) == str:
+                    self.check(_address, words, _from, _to)
+                elif type(words) == list:
                     for word in words:
                         self.check(_address, word, _from, _to)
                 else:
-                    return 'word must be of list class'
+                    return 'word must be of string type or list class'
+            return self.harvested_data
+        elif type(uris) == str:
+            if type(words) == str:
+                self.check(uris, words, _from, _to)
+            elif type(words) == list:
+                for word in words:
+                    self.check(uris, word, _from, _to)
+            else:
+                return 'words must be of string type or list class'
             return self.harvested_data
         else:
-            return 'uris must be of list class or string type'
+            return 'uri must be of string type or list class'
 
     def reset_miner(self, stamp, data):
         if stamp:
