@@ -8,7 +8,19 @@ class Miner:
         self.stamp = 0
         self.harvested_data = {}
 
-    def check(self,_address, word, _from, _to):
+    def check_all(self, _address, word, _data, _middle, _from, _to):
+        _end = len(_data) - 1
+        _data_to_check = _data
+        while _middle != -1:
+            _middle = _data_to_check.find(word)
+            _start_from = _data_to_check[:_middle].rfind(_from) + 1
+            _limit_to = _middle + _data_to_check[_middle:].find(_to)
+            result = _data_to_check[_start_from:_limit_to]
+            self.harvested_data[self.stamp] = {'Address': _address, 'word': word, 'result': result}
+            _data_to_check = _data_to_check[_middle + len(word):]
+            self.stamp += 1
+
+    def check(self, _address, word, _deep, _from, _to):
         _data = requests.get(_address)
         if word in _data.text:
             _middle = _data.text.find(word)
@@ -20,11 +32,13 @@ class Miner:
                 _limit_to = _middle + _to
             else:
                 _start_from = _limit_to = _middle
+            if _deep:
+                self.check_all(_address, word, _data.text[_middle + len(word):], _middle, _from, _to)
             result = _data.text[_start_from:_limit_to]
             self.harvested_data[self.stamp] = {'Address':_address, 'word': word, 'result': result}
             self.stamp += 1
 
-    def search_for(self, uris, words, _from=None, _to=None):
+    def search_for(self, uris, words, _deep=False, _from=None, _to=None):
         if not _from:
             _from = '>'
         if not _to:
@@ -32,19 +46,19 @@ class Miner:
         if type(uris) == list:
             for _address in uris:
                 if type(words) == str:
-                    self.check(_address, words, _from, _to)
+                    self.check(_address, words, _deep, _from, _to)
                 elif type(words) == list:
                     for word in words:
-                        self.check(_address, word, _from, _to)
+                        self.check(_address, word, _deep, _from, _to)
                 else:
                     return 'word must be of string type or list class'
             return self.harvested_data
         elif type(uris) == str:
             if type(words) == str:
-                self.check(uris, words, _from, _to)
+                self.check(uris, words, _deep, _from, _to)
             elif type(words) == list:
                 for word in words:
-                    self.check(uris, word, _from, _to)
+                    self.check(uris, word, _deep, _from, _to)
             else:
                 return 'words must be of string type or list class'
             return self.harvested_data
