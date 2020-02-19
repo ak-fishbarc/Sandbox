@@ -7,9 +7,9 @@ app.secret_key = 'generate_some_key'
 def homepage():
     return render_template('homepage.html')
 
-@app.route('/signup_page', methods=['GET', 'POST'])
+@app.route('/memory_cards', methods=['GET', 'POST'])
 def signup():
-    return render_template('create_account.html')
+    return render_template('cards_game.html')
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)

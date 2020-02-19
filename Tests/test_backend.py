@@ -19,7 +19,7 @@ class BackendTest(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_signup_page(self):
-        response = app.test_client().get('/signup_page', follow_redirects=True)
+        response = app.test_client().get('/memory_cards', follow_redirects=True)
         self.assertEqual(response.status_code, 200)
 
 if __name__ == '__main__':

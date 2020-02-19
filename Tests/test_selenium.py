@@ -24,10 +24,19 @@ class SeleniumTest(unittest.TestCase):
         self.assertEqual(get_code.status_code, 200)
         self.assertIn('Welcome to Flask Server', self.browser.title)
 
-    def test_signup_page(self):
-        get_code = requests.get('http://localhost:5000/signup_page')
+    def test_memory_cards(self):
+        get_code = requests.get('http://localhost:5000/memory_cards')
         self.assertEqual(get_code.status_code, 200)
         self.assertIn('Welcome to Flask Server', self.browser.title)
+        self.browser.get('http://localhost:5000/memory_cards')
+        find_front = self.browser.find_element_by_id('front')
+        find_front.send_keys('Atom')
+        find_back = self.browser.find_element_by_id('back')
+        find_back.send_keys('Nucleus')
+        find_button = self.browser.find_element_by_name('submit')
+        find_button.click()
+        if self.browser.find_element_by_tag_name('div'):
+            print('Checked!')
 
 
 if __name__ == '__main__':
