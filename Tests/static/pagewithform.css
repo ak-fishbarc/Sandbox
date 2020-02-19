@@ -1,0 +1,18 @@
+form{
+width: 12%;
+height: 15%;
+border: 3px outset orange;
+box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+margin: auto;
+text-align: center;
+}
+form input{
+width: 50%;
+margin: 5px;
+}
+textarea{
+resize: none;
+}
+div{
+word-wrap: break-word;
+}
