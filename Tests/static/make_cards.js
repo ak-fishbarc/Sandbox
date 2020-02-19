@@ -42,10 +42,12 @@ function season_the_card(card_id, front, back){
     };
 
 function create_card(){
-    var front_text = document.getElementById("front");
-    var back_text = document.getElementById("back");
-    var new_card = document.createElement("DIV");
-    new_card.id = front_text.value;
-    document.body.appendChild(new_card);
-    season_the_card(new_card.id, front_text, back_text);
+    if(document.getElementById('front').value && document.getElementById('back').value){
+        var front_text = document.getElementById("front");
+        var back_text = document.getElementById("back");
+        var new_card = document.createElement("DIV");
+        new_card.id = front_text.value;
+        document.body.appendChild(new_card);
+        season_the_card(new_card.id, front_text, back_text);
+    }
 };
