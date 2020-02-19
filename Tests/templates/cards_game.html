@@ -6,15 +6,20 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='pagewithform.css') }}">
     <script src="static/drag_card.js"></script>
     <script src="static/make_cards.js"></script>
+    <script src="static/save_cards.js"></script>
 </head>
 <body>
-<form onsubmit="event.preventDefault(); create_card();" method="POST">
-    Card Front:
+<form id="make_cards" onsubmit="event.preventDefault(); create_card();" method="POST">
+    Card Front:<br>
     <input id="front" type="text" name="front"><br>
     Card Back:<br>
     <textarea id="back" rows="5" cols="10" name="back"></textarea><br>
-    <input type="submit" name="submit">
+    <input type="submit" name="submit" value="Create">
 </form>
-
+<form id="save_deck" onsubmit="event.preventDefault(); save_deck();" method="POST">
+    Name your deck:
+    <input id="deckname" type="text" name="deckname"><br>
+    <input type="submit" name="submit" value="Save Deck">
+</form>
 </body>
 </html>
