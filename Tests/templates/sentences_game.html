@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sentences</title>
+</head>
+<body>
+
+<form id="sentences_form" onsubmit="event.preventDefault(); slice_n_dice();" method="POST">
+    Sentence:<br>
+    <textarea id="sentence" rows="5" cols="20" name="user_sentence"></textarea><br>
+    Level:<br>
+    <input id="level" type="number" name="level_value"><br>
+    <input type="submit" name="submit" value="Create">
+</form>
+<form id="compare_two" onsubmit="event.preventDefault(); compare_two();" method="POST">
+    Compare Sentences:<br>
+    <textarea id="compare" rows="5" cols="20" name="compare_this"></textarea><br>
+    <input type="submit" name="submit" value="Compare">
+</form>
+<section id="show_sentence"></section>
+</body>
+    <script src="static/sentences.js"></script>
+
+</html>
